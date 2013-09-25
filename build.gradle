@@ -1,0 +1,60 @@
+apply plugin: 'groovy'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+sourceCompatibility=1.7
+targetCompatibility=1.7
+
+repositories {
+   mavenCentral()
+}
+configurations {
+      all*.exclude group: 'commons-logging', module: 'commons-logging'
+}
+dependencies {
+   compile 'org.codehaus.groovy:groovy-all:2.0.7'
+
+   compile 'org.slf4j:jcl-over-slf4j:1.7.5'
+   runtime 'org.slf4j:slf4j-log4j12:1.7.5'
+         
+   compile 'com.sun.jersey:jersey-server:1.17.1'
+   compile 'com.sun.jersey:jersey-json:1.17.1'
+   compile 'com.sun.jersey:jersey-core:1.17.1'
+   compile 'com.sun.jersey:jersey-servlet:1.17.1'
+   compile 'com.sun.jersey.contribs:jersey-spring:1.17.1'
+   
+   compile 'org.springframework:spring-web:3.2.2.RELEASE'
+   compile 'org.springframework:spring-context:3.2.2.RELEASE'
+   compile 'org.springframework:spring-context-support:3.2.2.RELEASE'
+   compile 'org.springframework:spring-jdbc:3.2.2.RELEASE'
+   
+   compile 'org.apache.solr:solr-solrj:4.3.1'
+   
+   compile 'org.thymeleaf:thymeleaf:2.0.17'
+   
+   compile 'org.apache.commons:commons-lang3:3.1'
+   compile 'commons-io:commons-io:2.4'
+   
+   providedCompile 'org.apache.geronimo.specs:geronimo-servlet_3.0_spec:1.0'
+   
+   testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+   testCompile 'junit:junit:4.10'
+   testCompile 'cglib:cglib:2.2.2'
+   testCompile 'xmlunit:xmlunit:1.4'
+}
+processResources {
+   eachFile {
+      if(it.name == 'logback.xml')
+      {
+         it.filter { line->
+            line.replace('ref="STDOUT"', 'ref="LOGFILE"')
+         }
+      }
+   }
+}
+war {
+   archiveName='search.war'
+}
+task wrapper(type: Wrapper) {
+   gradleVersion='1.7'
+}
