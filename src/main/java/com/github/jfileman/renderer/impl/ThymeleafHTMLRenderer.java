@@ -3,10 +3,11 @@ package com.github.jfileman.renderer.impl;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -24,11 +25,11 @@ public class ThymeleafHTMLRenderer implements HTMLRenderer
    @Override
    public String render(String template, Map<String, ?> context) throws RendererException
    {
-      ByteArrayOutputStream out=new ByteArrayOutputStream();
+      StringWriter writer=new StringWriter();
       
-      render(template, context, out);
+      render(template, context, writer);
       
-      return out.toString();
+      return writer.toString();
    }
    @Override
    public void render(String template, Map<String, ?> context, OutputStream out) throws RendererException
@@ -36,9 +37,8 @@ public class ThymeleafHTMLRenderer implements HTMLRenderer
       try
       {
          OutputStreamWriter writer=new OutputStreamWriter(out);
-         Context ctx=new Context(Locale.getDefault(), context);
          
-         templateEngine.process(template, ctx, writer);
+         render(template, context, writer);
          
          writer.flush();
       }
@@ -46,5 +46,10 @@ public class ThymeleafHTMLRenderer implements HTMLRenderer
       {
          throw new RendererException(e);
       }
+   }
+   @Override
+   public void render(String template, Map<String, ?> context, Writer writer) throws RendererException
+   {
+      templateEngine.process(template, new Context(Locale.getDefault(), context), writer);
    }
 }
