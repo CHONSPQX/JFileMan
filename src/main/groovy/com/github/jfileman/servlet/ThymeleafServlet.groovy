@@ -69,7 +69,7 @@ class ThymeleafServlet extends HttpServlet
       }
       catch(TemplateInputException e)
       {
-         if(e.getCause() && e.getCause().class == SAXParseException)
+         if(e.getCause() && e.getCause() == SAXParseException)
          {
             logger.error('Error occured loading template', e)
             writer.println('Internal server error occurred')
