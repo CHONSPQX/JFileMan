@@ -20,6 +20,8 @@ else if(System.properties['catalina.home']) //put logging in Tomcat's logs direc
    logFileHome=System.properties['catalina.home'] + '/' + logFileHome
 }
 
+logger('org.springframework', INFO)
+
 appender('FILE', RollingFileAppender) {
    file=logFileHome + '/JFileMan.log'
    append=true
@@ -36,4 +38,4 @@ appender('STDOUT', ConsoleAppender) {
    }
 }
 
-root(DEBUG, ['STDOUT', 'FILE'])
+root(DEBUG, ['STDOUT'])
