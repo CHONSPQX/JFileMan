@@ -1,15 +1,17 @@
 package com.github.jfileman.service.data
 
-import groovy.transform.ToString;
+import groovy.transform.ToString
 
-import java.io.Serializable
-
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessType
+import javax.xml.bind.annotation.XmlAccessorType
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement
 
 @ToString
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 class SingleFile implements Serializable
 {
-   String path
-   Date creationDate
+   @XmlElement String path
+   @XmlElement Date creationDate
 }
