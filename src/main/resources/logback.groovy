@@ -21,6 +21,7 @@ else if(System.properties['catalina.home']) //put logging in Tomcat's logs direc
 }
 
 logger('org.springframework', INFO)
+logger('org.thymeleaf', ERROR)
 
 appender('FILE', RollingFileAppender) {
    file=logFileHome + '/JFileMan.log'
