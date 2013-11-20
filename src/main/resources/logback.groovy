@@ -11,7 +11,7 @@ if(System.properties['jfileman.logging.home']) //override container specific log
 {
    logFileHome=System.properties['jfileman.logging.home'] + '/' + logFileHome
 }
-if(System.properties['jetty.home']) //put logging in Jetty's logs directory
+else if(System.properties['jetty.home']) //put logging in Jetty's logs directory
 {
    logFileHome=System.properties['jetty.home'] + '/' + logFileHome
 }
