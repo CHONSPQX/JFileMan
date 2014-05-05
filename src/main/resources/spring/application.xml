@@ -16,4 +16,17 @@
 	
 	<bean id="fileService" class="com.github.jfileman.service.FileService" />
 	
+	<bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
+		<property name="templateResolver">
+			<bean id="templateResolver" class="org.thymeleaf.templateresolver.TemplateResolver">
+				<property name="templateMode" value="HTML5" />
+				<property name="cacheable" value="false" />
+				<property name="characterEncoding" value="utf-8" />
+				<property name="resourceResolver">
+					<bean class="org.thymeleaf.resourceresolver.ServletContextResourceResolver" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
 </beans>
