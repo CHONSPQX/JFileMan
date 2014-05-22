@@ -9,8 +9,8 @@ import com.github.jfileman.service.data.SingleFile
 @Path('/')
 class FileService
 {
-   @GET @Path('listFiles/{dir}')
-   List<SingleFile> listFiles(@PathParam('dir') String dir)
+   @GET @Path('listFiles')
+   List<SingleFile> listFiles(/*@PathParam('dir') String dir*/)
    {
       return []
    }
