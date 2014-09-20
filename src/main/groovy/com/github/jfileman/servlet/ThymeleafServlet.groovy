@@ -1,12 +1,5 @@
 package com.github.jfileman.servlet;
 
-import javax.servlet.ServletConfig
-import javax.servlet.ServletException
-import javax.servlet.http.HttpServlet
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
-import javax.ws.rs.core.MediaType
-
 import org.apache.commons.io.FilenameUtils
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.Logger
@@ -18,7 +11,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver
 import org.thymeleaf.templateresolver.TemplateResolver
 import org.xml.sax.SAXParseException;
 
-class ThymeleafServlet extends HttpServlet
+class ThymeleafServlet
 {
    private static Logger logger=LoggerFactory.getLogger(ThymeleafServlet)
    private static final long serialVersionUID=9014430175582010882L
@@ -26,8 +19,7 @@ class ThymeleafServlet extends HttpServlet
    private TemplateEngine templateEngine
    private String contextPath
 
-   @Override
-   void init() throws ServletException
+   void init()
    {
       logger.debug('Initializing template rendering')
       this.templateResolver=new ServletContextTemplateResolver()
@@ -38,15 +30,13 @@ class ThymeleafServlet extends HttpServlet
       this.templateEngine=new TemplateEngine()
       this.templateEngine.setTemplateResolver(this.templateResolver)
    }
-   @Override
-   void init(ServletConfig config) throws ServletException
+   void init(def config) 
    {
       logger.debug('Initializing servlet context')
       super.init(config)
       this.contextPath=config.getServletContext().getContextPath()
    }
-   @Override
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+   protected void doGet(def request, def response) 
    {
       PrintWriter writer=response.getWriter()
       String templatePath=FilenameUtils.normalize(StringUtils.substringAfterLast(request.getPathTranslated(), contextPath))
